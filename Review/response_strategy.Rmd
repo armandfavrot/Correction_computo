@@ -333,18 +333,6 @@ ggplot(df_prediction) +
 
 
 
-```{r, cache = TRUE}
-df_prediction %>%
-    summarise(MSE = sum(error), .by = model) %>% kbl() %>% kable_styling()
-```
-
-
-
-```{r, cache = TRUE}
-df_prediction %>%
-    summarise(MSE = sum(error), .by = model)
-```
-
 
 **MSE sur l'estimation des paramètres**
 
@@ -816,7 +804,19 @@ I imagine one reason to consider a limited number of scenarios is computationnal
 :::
 
 ::: response_strategy         
-=\> Oui, stratégie de réponse : parler du temps de calculs pour justifier le nombre limité de scénarios considérés
+Oui, stratégie de réponse : parler du temps de calculs pour justifier le nombre limité de scénarios considérés, en profiter pour citer migale.
+:::
+
+::: response
+Yes, we have added the following sentence at the end of section 2.2.3 (Material and Method / Model / Simulations):
+"These simulations required a significant amount of computation time and were conducted on the INRAE MIGALE server."
+
+And we have removed the following sentence from the note associated with the code on simulations :
+"We used the Migale server from INRAE to run these simulations".
+:::
+
+::: rouge
+Ajouter les phrases, rajouter la citation de Migale 
 :::
 
 ### G.  
