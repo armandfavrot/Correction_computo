@@ -778,11 +778,19 @@ As I already stated I am not an expert at modeling this type of data, but it fee
 :::
 
 ::: response_strategy         
-Je ne suis pas sur que le nombre de plantes soit un paramètre important. Mon intuition est qu'il est équivalent au nombre de sites. Par exemple je pense que deux sites où on mesure Z sur 20 plantes est équivalent à 4 sites où on mesure Z sur 10 plantes. Le nombre de plantes N pourrait cependant faire partie d'un problème d'optimisation sous contraintes dans lequel on veut par exemple un minimum de site pour couvrir un nombre suffisant de situation environnemental (météo, composition de la terre, présence de pucerons, ...). 
+Je ne suis pas sur que le nombre de plantes soit un paramètre important. Mon intuition est qu'il est équivalent au nombre de sites. Par exemple je pense que deux sites où on mesure Z sur 20 plantes est équivalent à 4 sites où on mesure Z sur 10 plantes. Le nombre de plantes N pourrait cependant faire partie d'un problème d'optimisation sous contraintes dans lequel on veut par exemple un minimum de site pour couvrir un nombre suffisant de situation environnemental (météo, composition de la terre, présence de pucerons, ...). See [here](#optimisation) .
 
 On pourrait par exemple, étant donné $N_Y$ la taille d'échantillon pour laquelle on mesure l'intensité, chercher $N_Z$ la taille d'échantillon pour laquelle on mesure la prévalence qui soit telle que la précision obtenue avec l'intensité soit égale à la précision obtenue avec la prévalence.
 
 Faire à peu près la même réponse que pour D.2.2 : expliquer que l'objectif n'était pas faire de l'optimisation de design, mais que cela est possible en particulier en considérant N comme un paramètre à optimiser. Rajouter une phrase quelque part pour en parler.
+:::
+
+::: response
+Yes, the larger N is, the more informative Z becomes, and N could effectively be a part of an experimental design optimization problem. As mentioned in our response to comment D.2., our objective here was not to conduct an optimization of the design. However, we do propose to address this in the conclusion, and we have added the following sentence to it:
+:::
+
+::: rouge 
+Ajouter la phrase en question
 :::
 
 ::: question
@@ -790,9 +798,15 @@ In terms of experimental design, depending on the cost of $Y$ and $Z$, increasin
 :::
 
 ::: response_strategy         
-Oui, voir la réponse précédente, il doit exister un $N_z = f(N_y)$ tel que la précision obtenue avec $Y$ soit égale à celle obtenue avec $Z$.
+Oui, il doit exister un $N_Z$ fonction de $N_Y$, $N_Z = f(N_Y)$, tel que la précision obtenue avec $Y$ soit égale à celle obtenue avec $Z$. Il faudrait ensuite comparer le coût entre mesure de Y sur $N_Y$ betteraves et mesure de $Z$ sur $N_Z$ betteraves pour déterminer la meilleure option. 
 
-Stratégie de réponse : proposer d’en parler dans la conclusion
+Rajouter une phrase dans la conclusion pour souligner ce point.
+:::
+
+::: response         
+Yes, there must exist an $N_Z$ that is a function of $N_Y$, where $N_Z = f(N_Y)$, such that the precision obtained with $Y$ is equal to that obtained with $Z$. Then, it would be necessary to compare the cost between measuring Y on $N_Y$ sugar beets and measuring $Z$ on $N_Z$ sugar beets to determine the better option.
+
+We have added the following sentence to the conclusion to emphasize this point:
 :::
 
 ### F.
@@ -908,7 +922,10 @@ https://github.com/pneuvial/computo-2023-favrot/blob/reproducibility/Article.qmd
 
 # Temporary notes
 
-## Problème d'optimisation
+## Problème d'optimisation {#optimisation}
+
+
+
 
 On veut trouver le design de l'expérience qui maximise la précision de l'estimation de l'efficacité, sous diverses contraintes, dont le côut du design.
 
