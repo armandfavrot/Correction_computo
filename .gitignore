@@ -1,0 +1,7 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+
+/Article/.quarto/
+/Article/Article_cache/pdf/*fig-two*

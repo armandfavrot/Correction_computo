@@ -1,0 +1,15 @@
+colorout
+ggplot2
+tidyverse
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+gridExtra
+coda
+rjags
+latex2exp
+kableExtra

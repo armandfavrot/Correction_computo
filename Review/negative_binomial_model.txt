@@ -1,0 +1,44 @@
+
+model {
+
+    ###################### Likelyhood ######################
+    for (i in 1:Q){
+        Y[i] ~ dnegbin(p[i], N[i] * r)
+        p[i] <- r / (r + lambda[i]) 
+
+        Z[i] ~ dbinom(pi[i], N[i])
+        pi[i] = 1 - p[i] ^ r
+
+        log(lambda[i]) = beta0[TRIAL[i]] + gamma0[TREATMENT[i]] + (alpha1 + gamma1[TREATMENT[i]]) * TIME[i] + u[TRIAL_TREATMENT[i]]
+
+        pred[i] ~ dnegbin(p[i], N[i] * r)            
+    }
+
+    for (j in 1:K){
+        beta0[j] ~ dnorm(alpha0, invsigma)
+    }
+
+    for (c in 1:M){
+        u[c] ~ dnorm(0, invchi)
+    }
+
+    gamma0[1] = 0
+    gamma1[1] = 0
+
+    ######################## Priors ########################
+    for (s in 2:L){
+        gamma0[s] ~ dnorm(0, 0.001)
+        gamma1[s] ~ dnorm(0, 0.001)
+    }
+
+    alpha0 ~ dnorm(0, 0.001)
+    alpha1 ~ dnorm(0, 0.001)
+    sigma ~ dunif(0, 10)
+    chi ~ dunif(0, 10)
+    r ~ dunif(0, 50)
+
+    ################### Derived Quantities #################
+    invsigma = pow(sigma, -2)
+    invchi = pow(chi, -2)
+}
+
