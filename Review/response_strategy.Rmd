@@ -21,29 +21,25 @@ pre[class] {
 pre, code {white-space:pre !important; overflow-x:scroll !important}
 
 .question {
-  text-indent: 5em;
   text-align: justify;
 } 
 
-.indented_response {
-  text-indent: 5em;
-  color: #000080;
+.response{
+  color: #145805;
   text-align: justify;
   margin-bottom: 30px;
 } 
 
-.response {
+.response_strategy {
   color: #000080;
   text-align: justify;
   margin-bottom: 30px;
-  margin-left: 40px
 } 
 
 .rouge {
   color: red;
   text-align: justify;
   margin-bottom: 30px;
-  margin-left: 40px
 } 
 ```
 
@@ -63,7 +59,7 @@ In the manuscript 'A hierarchical model to evaluate pest treatments from prevale
 Before starting my comments, I wish to apologize deeply for the inconvenience caused to the authors and editor by the time taken to review the manuscript. Besides, I did not find any line numbering; thus, my comment below only vaguely refer to paragraph or page numbers.
 :::
 
-::: indented_response
+::: response_strategy
 Ajouter des numéros de lignes dans mes fichiers.
 :::
 
@@ -71,8 +67,12 @@ Ajouter des numéros de lignes dans mes fichiers.
 A general comment : the article focusses on aphid abundance on plants sampled during field trials designed to compare the efficacy of various pest control options, but the framework is more generic (and might be used e.g. in animal/human epidemiology) and the authors may highlight this point in the abstract, introduction and/or discussion.
 ::: 
 
-::: indented_response         
+::: response_strategy         
 Ajouter une phrase dans la conclusion pour souligner ce point.
+:::
+
+::: response
+We added the following sentece in the conclusion : 
 :::
 
 
@@ -82,12 +82,13 @@ Ajouter une phrase dans la conclusion pour souligner ce point.
 My only methodological comment relates to the choice of a Poisson distribution for W, which is the number of aphids on each plant. Because aphids land and initiate exponentially growing clonal populations at different times on different plants of the same trial x treatment x block x time combination, W should have an overdispersed Poisson distribution (e.g., negative binomial), instead of a Poisson distribution (eq. 1). Thus, Y (the sum of N independent W variables) should not have a Poisson distribution (eq. 3). It would be interesting to test whether an overdispersed Poisson distribution is better than a Poisson distribution for fitting the unaggregated data on the number of aphids on each of the N_i (i.e. 10 here) sampled plants (gaining statistical power from the multiple trials). Although the authors state (in part 2.1) that such data are not available to the authors, these raw data are classically recorded and might be provided by the unspecified colleagues who conducted the field trials (by the way, the institutions that performed the field trials should be mentioned more explicitly).
 ::: 
 
-::: indented_response         
+::: response_strategy         
 Ce commentaire remet en question le modèle que l'on utilise et propose d'en utiliser un autre : la négative binomiale. La négative binomiale permet de gérer la surdispersion. Ce commentaire nous a fait remarquer que nous n'avions pas vérifié l'ajustement aux données de notre modèle. La première étape sera donc de faire cette vérification. On la fera en appliquant la méthode du "posterior predictive checking", qui consiste, pour chaque observation, à calculer la probabilité que le modèle propose une valeur plus extrême que celle de l'observation considérée. On fera cette vérification uniquement sur les données réelles. La seconde étape sera de coder le modèle reposant sur la loi négative binomiale et de le comparer au modèle de Poisson en utilisant le posterior predictive checking : on fera un scatter plot des proba à posteriori de dépasser les valeurs extrêmes selon les deux modèles (probas d'un modèle en abscisse et probas de l'autre en ordonné). 
 
 Notre stratégie de réponse dépendra des résultats de ces deux premières étapes.
 :::
 
+::: response
 [paragraphe biblio pour justifier notre choix]
 
 Nous avons implémenté le modèle négatif binomial sur les données réelles et nous avons comparé son ajustement aux données par rapport au modèle de Poisson, en utilisant la méthode probability posterior checking **[ref]**. 
@@ -100,7 +101,7 @@ $$
 
 Where $\lambda_{ijkt}$ is the mean of $W_{ijkts}$ and $r$ is the overdispersion parameter. The model on $\lambda_{ijkt}$ is the same as the one of the Poisson model, but without the term $\epsilon_{ijkt}$ :
 
-$\begin{align}&\log\ \lambda_{ijkt} = \alpha_0 + \beta_{0i} + \gamma_{0j}  + (\alpha_1 + \gamma_{1j})\ X_t + u_{ij}\label{eq:test}\tag{1}\end{align}$
+$$\log\ \lambda_{ijkt} = \alpha_0 + \beta_{0i} + \gamma_{0j}  + (\alpha_1 + \gamma_{1j})\ X_t + u_{ij}$$
 
 This settings leads to the following distribution for $Y$ and $Z$ :
     
@@ -394,7 +395,7 @@ for(I in I_vec){
 ggplot(res) +
     geom_boxplot(aes(y = MSE, x = factor(I), fill = Model))
 ```
-
+:::
 
 ## Minor comments
 
@@ -402,7 +403,7 @@ My other comments are minor and mainly concern typos:
 
 - &#10060; p.3 l.2: 'indeed more time-dependent' 
 
-::: response
+::: response_strategy
 Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuring intensity is indeed often more time demanding than measuring prevalence, in particular when the pest individuals are small, numerous, and difficult to detect." Je ne comprends pas ce commentaire.
 ::: 
 
@@ -410,7 +411,7 @@ Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuri
 
   - &#9989; 'negative impact on a wide range'
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "Recently, neonicotinoids were recognized as presenting high risks for the environment with a negative impact a wide range of non-target organisms"
   
   =\> on a oublié le "on", corriger
@@ -418,7 +419,7 @@ Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuri
 
   - &#9989; 'this family of pesticides has been banned'
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "and this familly of pesticides had been banned in several European countries"
   
   =\> erreur de temps, changer had par has
@@ -426,7 +427,7 @@ Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuri
 
   - &#9989; 'some trials may report'
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "Consequently, for a given pest treatment, some of trials may report prevalence data while others report intensity data"
   
   =\> le "of" est en trop, corriger
@@ -436,7 +437,7 @@ Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuri
 
   - &#9989; ‘both types of data’
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "while others report intensity data or both type of data" 
   
   => il manque un “s” à “type”, corriger
@@ -444,13 +445,13 @@ Ce commentaire fait référence à cette phrase (dans l'introduction) : "measuri
 
   - &#9989; replace ‘will’ with ‘may’ (twice)
 
-  ::: response
+  ::: response_strategy
   les deux will en questions sont dans la phrase suivante : "It is unclear whether the simultaneous analysis of prevalence and intensity data will increase the accuracy of the estimated treatment efficacy compared to the use of a single type of data, and whether this will increase the probability of identifying the most efficient treatments" =\> faire le remplacement
   :::
 
 - p.3-4: please rephrase this sentence for clarity
 
-::: response
+::: response_strategy
 Le reviewer fait référence à cette phrase : "Based on simulations, we then quantify the reduction of mean absolute errors in the estimated treatment efficacies induced by the combination of prevalence and incidence data compared to the use of a single type of data."
 
 Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais intensity (incidence est synonyme de prévalence).
@@ -462,7 +463,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
   - &#9989; 'the Netherlands'
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "Data were collected in 32 field trials conducted in France, Belgium and Netherlands to compare several treatments"
   
   =\> oubli du "the", corriger
@@ -470,7 +471,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
   - &#9989; 'Intensity and prevalence were monitored at different times after treatments'
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "Intensity and prevalence were monitored at different dates during the growing season."
   
   =\> remplacer "dates during the growing season" par "times after treatments"
@@ -478,7 +479,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
 - &#9989; Fig.1 legend: last 2 sentences are not necessary (obvious or redundant with the figure)
 
-::: response
+::: response_strategy
 =\> supprimer ces deux phrases
 :::
 
@@ -486,7 +487,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
   - &#9989; ‘assuming the Ws are independent’
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "Then, assuming the Ws independent, we have:"
   
   =\> rajouter "are"
@@ -494,7 +495,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
   - &#9989; ‘quantities used in the model’
 
-  ::: response
+  ::: response_strategy
   fait référence à la phrase : "The different quantities used by the model are defined in Table 1."
   
   =\> changer "by" par "in"
@@ -502,7 +503,7 @@ Tout d'abord on avait une erreur dans cette phrase : ce n'est pas incidence mais
 
 - p.6: a more precise description of model parameterisation is necessary: does the number of sampled plants vary (only) from trial to trial (if yes, subscript i is OK)?
 
-::: response
+::: response_strategy
 Oui le nombre de plantes échantillonnées ne varie que selon les essais.
 
 On pourrait modifier la table 1 pour que ce soit plus explicite :
@@ -524,7 +525,7 @@ Je propose à la place : "mean growth parameter of the number of pest individual
 
 - Isn't gamma_1j the treatment effect only at t0?
 
-::: response
+::: response_strategy
 Je ne comprends pas ce commentaire, mais il m'a fait voir que la définition du temps n'est pas claire, je propose de remplacer X_t par t
 
 A revoir, il faudrait peut être dire que t=0 peut correspondre soit à la moyenne des temps de mesure, soit au jour du traitement, qu'on peut le définir comme le temps de référence, auquel cas il faut adapter la définition de alpha, il faut aussi que je vérifie qu'il n'y a pas de temps négatif, auquel cas il faudrait mettre des indicatrices dans le modèle
@@ -534,7 +535,7 @@ A revoir, il faudrait peut être dire que t=0 peut correspondre soit à la moyen
 
   - &#9989; 'using Bayesian inference' 
   
-  ::: response
+  ::: response_strategy
   fait référence à la phrase "The model parameters were estimated using a Bayesian inference with a Markov chain Monte-Carlo method."
   
   => supprimer le "a"
@@ -542,7 +543,7 @@ A revoir, il faudrait peut être dire que t=0 peut correspondre soit à la moyen
   
   - &#9989; 'to facilitate convergence'
   
-  ::: response
+  ::: response_strategy
   fait référence à "and we centered the time variable $t$ to facilitate the convergence."
   
   => supprimer le deuxième "the"
@@ -552,7 +553,7 @@ A revoir, il faudrait peut être dire que t=0 peut correspondre soit à la moyen
 
   - &#9989; 'extract of the real dataset'
   
-  ::: response
+  ::: response_strategy
   fait référence à "The following code presents the inference on an extract fo the real 
 dataset" dans un commentaire de code
 
@@ -562,7 +563,7 @@ dataset" dans un commentaire de code
   
   - &#9989; 'likelihood'
   
-  ::: response
+  ::: response_strategy
   fait référence à "Likelyood" dans le modèle jags
    => remplacer le "y" par un "i"
   :::
@@ -575,7 +576,7 @@ dataset" dans un commentaire de code
 
   - &#9989; 'As the computing time is growing' 
   
-  ::: response
+  ::: response_strategy
   fait référence à "As the calculus time is growing fast" dans un commentaire du code des simulations
   
   => remplacer calculus par computing
@@ -583,7 +584,7 @@ dataset" dans un commentaire de code
   
   - &#9989; 'Our simulation results'
   
-  ::: response
+  ::: response_strategy
   faité référence à "Our simulations results are obtained" dans le même commentaire.
   
   => supprimer le "s" de "simulations"
@@ -591,7 +592,7 @@ dataset" dans un commentaire de code
 
 - &#9989; p.24 l.2: 'identifying'
 
-  ::: response
+  ::: response_strategy
   fait référence à "for assessing the efficacy of treatments and indentifying"
   
   => supprimer le premier "n"
@@ -601,7 +602,7 @@ dataset" dans un commentaire de code
 
   - &#9989; 'thousands'
   
-  ::: response
+  ::: response_strategy
   fait référence à "and convergence was quickly achieved after a few thoushands iterations."
   
   => supprimer le deuxième "h"
@@ -609,7 +610,7 @@ dataset" dans un commentaire de code
   
   - &#9989; 'intensity data led to a substantial'
   
-  ::: response
+  ::: response_strategy
   fait référence à "intensity data let to a substantial reduction of the uncertainty"
   
   => remplacer "let" par "led"
@@ -649,7 +650,7 @@ Introduction page 2-3. I am not an expert at modeling pest-treatment data, and I
 [3] https://journals.sagepub.com/doi/abs/10.3141/2019-01?journalCode=trra Park, Eun Sug, and Dominique Lord. "Multivariate Poisson-lognormal models for jointly modeling crash frequency by severity." Transportation Research Record 2019.1 (2007): 1-6.
 :::
 
-::: response         
+::: response_strategy         
 => Lire ces articles et voir si on peut y faire référence dans l’introduction
 :::
 
@@ -659,7 +660,7 @@ Introduction page 2-3. I am not an expert at modeling pest-treatment data, and I
 The reason why it does make sense to consider some parameters as fixed and others as random is not very clear to me. It is stated, that this model was validated in another study (Laurent et. al 2023). As far as I can tell the main focus of the Laurent et. al 2023 was not to validate this model. I think a few high-level explanations would ease reading. It would also be usefull to cite in which sections/paragraphs of Laurent et. al 2023 equation (2) is validated.
 :::
 
-::: response
+::: response_strategy
 Ce commentaire fait référence à la partie suivante :
 :::
 
@@ -678,7 +679,7 @@ with
 
 The observed variables (intensity and prevalence) can be expressed as a function of $W$. We note: ...
 
-::: response
+::: response_strategy
 paramètre lié au site qui sont random, on ne veux pas faire d'inférence site par site, on veut faire une inférence pour la population de site, globale, choix qui dépend de l'obejctif de l'inférence, par rapport à la population de site
 
 Annabelle a fait des comparaison de modèle avec l'AIC, terme validé ambigu. Pour le choix entre fixe et random, meme si fixe et random ne font normalement pas référence aux lois mais au fait que le paramètre soit commun à tous les individus ou pas. Mais pour paler de la loi (constante ou aléatoire), on prend constant quand on veut estimer et aléatoire quand on n'en a pas besoin on prend aléatoire.
@@ -704,7 +705,13 @@ As stated in the paper "the prevalence data are usually more accessible in pract
 
 To better compare and discuss the results it would be important to get a sense of these costs. For example, if it is 10 times more costly to get Y for one trial then comparing [50% Y - 0% Z] to [0% Y - 50% Z] does not seem exactly fair.
 
-::: response
+::: response_strategy
+
+On ne connait pas le coût d'un essai où l'on mesure Y et le coût d'un essai où l'on mesure Z, on ne peut donc pas savoir quels scénarios considérer pour faire une comparaison sur la base des coûts. Le fait de comparer [50% Y - 0% Z] et [0% Y - 50% Z] montre simplement que la mesure de Y apporte plus de précision dans l'estimation que la mesure de Z (à nombre d'observations égale).
+
+Cependant ce commentaire me fait voir qu'il y a un problème dans l'article : la partie 3.2.3 "Is it better to measure intensity or prevalence in new pest surveys ?". Je pense que pour bien répondre à cette question il faudrait connaitre les coûts des différents scénarios. 
+
+
 =\> Pour moi ce n'était pas le but de l'article d'approfondir cette question du coût et de l'optimisation qui en découle, étant donné que l'on a pas cette information. En fait je pense que ça pourrait faire partie d'une limite de l'article dont on parlerait dans la conclusion. Stratégie de réponse : en parler dans la conclusion.
 
 on ne connait pas exactement le cout, on a pas une estimation précise de la différence, demander à Fabienne ou cédric, on ne peut pas trop diminuer le nb d'essait avec Y, sinon on a plus assez d'essai
@@ -712,7 +719,7 @@ on ne connait pas exactement le cout, on a pas une estimation précise de la dif
 on pourrait utiliser notre modèle pour faire de l'optimisation de design, quand on connait les cout
 :::
 
-#### D.1.
+#### D.1. &#9989;
 
 ::: question
 In table 2 and 3, I think it would be clearer to always specificy the amount for Y and Z. For example [100% Y - 0% Z], [50% Y - 0% Z], ...
@@ -720,8 +727,16 @@ In table 2 and 3, I think it would be clearer to always specificy the amount for
 For now, I am not exactly sure which datasets are considered. This might explain some of the other questions I have…
 :::
 
-::: response         
+::: response_strategy         
 => faire la modification proposée
+:::
+
+::: response 
+We made the change, it correspond to the commit "change in notation for scenarios" (dfbaa65).
+:::
+
+::: rouge
+Ne faudrait-il pas en plus normaliser la notation de la façon suivante : toujours Y en premier et Z en deuxième. Exemple "50% Y - 0% Z", "0% Y - 50% Z", plutôt que "50% Y - 0% Z", "50% Z - 0% Y".
 :::
 
 #### D.2. 
@@ -730,14 +745,30 @@ For now, I am not exactly sure which datasets are considered. This might explain
 I am not sure I understand the choice of the 4 subdatasets in table 2. Would it not make sense to consider all the scenarios of table 3? In particular why not [100% Y - 100% Z] and [0% Y - 100% Z]?
 :::
 
-::: response         
-=\> On ne peut pas faire ça car on ne dispose des Z que dans 15 essais sur les 32 (paragraphe 2.1)
+::: response_strategy         
+Expliquer que ce n'est pas possible car on ne dispose des Z que dans 15 essais sur les 32 (paragraphe 2.1)
 :::
 
-Based on D0) why not consider more intermediate levels of Y : [25%Y - 100% Z], ...
+::: response
+We could not consider all the scenarios defined in Table 3 for the real data because we only have data for Z in 15 out of the 32 trials (see paragraph 2.1, "The number of infested plants (prevalence) was measured as well, but only in 15 trials out of 32"). Therefore, we were unable to consider the scenarios "100% Z - 0% Y," "100% Y - 100% Z," and "100% Z - 50% Y." We also did not consider the scenario "100% W" because W is not measured (only the sum of aphids on the N sugar beets in the sample is reported).
+:::
 
-::: response         
-on voulait surtout illustrer le principe des modèle et montrer que le design a un impact, et que notre modèle peut etre appliqué pour de l'optimisation
+::: question
+Based on D0) why not consider more intermediate levels of Y : [25%Y - 100% Z], ...
+:::
+
+::: response_strategy
+Expliquer que l'objectif n'était pas de faire une optimisation de design, rajouter une phrase quelque part pour souligner que notre modèle pourra être utiliser pour faire de l'optimisation de design.
+:::
+
+::: response
+We did not consider more intermediate scenarios because our goal was not to perform an experimental design optimization but simply to demonstrate that it is possible to combine Y and Z and that it is advantageous to do so when only Z is measured in certain trials.
+
+To emphasize one of the benefits of our model being experimental design optimization, we have added the following sentence:
+:::
+
+::: rouge
+Rajouter une phrase pour dire que notre modèle pourra être utilisé pour faire de l'optimisation de design.
 :::
 
 ### E.
@@ -746,21 +777,19 @@ on voulait surtout illustrer le principe des modèle et montrer que le design a 
 As I already stated I am not an expert at modeling this type of data, but it feels that the number of plants is an important parameter. The larger it is the better the Z variable should be? I am not sure why this is not considered in the simulations.
 :::
 
-::: response         
-il n'y pas de design optimal, il faut un point de départ, l'optimum dépend du parametre des modèles, on a fait des simus sur la base des paramètres inférés sur le s données réelles qui correspondent à des conditions spécifiques : on peux optimiser un design futur
+::: response_strategy         
+Je ne suis pas sur que le nombre de plantes soit un paramètre important. Mon intuition est qu'il est équivalent au nombre de sites. Par exemple je pense que deux sites où on mesure Z sur 20 plantes est équivalent à 4 sites où on mesure Z sur 10 plantes. Le nombre de plantes N pourrait cependant faire partie d'un problème d'optimisation sous contraintes dans lequel on veut par exemple un minimum de site pour couvrir un nombre suffisant de situation environnemental (météo, composition de la terre, présence de pucerons, ...). 
 
-C'est vrai, plus le nombre de plantes est grand, plus la précision que Z apporte est grande. On ne l'a pas considéré pour des raisons de simplicité et de temps de calculs.
+On pourrait par exemple, étant donné $N_Y$ la taille d'échantillon pour laquelle on mesure l'intensité, chercher $N_Z$ la taille d'échantillon pour laquelle on mesure la prévalence qui soit telle que la précision obtenue avec l'intensité soit égale à la précision obtenue avec la prévalence.
 
-Stratégie de réponse : proposer d'en parler dans la conclusion, dire que cela pourrait faire partie d'un problème d'optimisation. On pourrait par exemple, étant donné N_y la taille d'échantillon pour laquelle on mesure l'intensité, chercher N_z la taille d'échantillon pour laquelle on mesure la prévalence qui soit telle que la précision obtenue avec l'intensité soit égale à la précision obtenue avec la prévalence.
-
-notre objectif n'éatit pas de faire une optimisation absolue du modèle,
+Faire à peu près la même réponse que pour D.2.2 : expliquer que l'objectif n'était pas faire de l'optimisation de design, mais que cela est possible en particulier en considérant N comme un paramètre à optimiser. Rajouter une phrase quelque part pour en parler.
 :::
 
 ::: question
 In terms of experimental design, depending on the cost of $Y$ and $Z$, increasing the number of plants (rather than measuring the intensity) might very well be a better option?
 :::
 
-::: response         
+::: response_strategy         
 Oui, voir la réponse précédente, il doit exister un $N_z = f(N_y)$ tel que la précision obtenue avec $Y$ soit égale à celle obtenue avec $Z$.
 
 Stratégie de réponse : proposer d’en parler dans la conclusion
@@ -772,7 +801,7 @@ Stratégie de réponse : proposer d’en parler dans la conclusion
 I imagine one reason to consider a limited number of scenarios is computationnal runtime? If so, this should be stated?
 :::
 
-::: response         
+::: response_strategy         
 =\> Oui, stratégie de réponse : parler du temps de calculs pour justifier le nombre limité de scénarios considérés
 :::
 
@@ -782,7 +811,7 @@ I imagine one reason to consider a limited number of scenarios is computationnal
 For section 3.1.2, when discussing the size of the credibility intervals in Figure 4. As far as I understand the conclusions are based on one subsample of the whole data, is it? If so, I think subsampling should be repeated, to argue that in general (that is over a large number of subsamples) the credibility intervals are smaller with a particular sub-dataset ([50% Y - 0 % Z], [0% Y - 50 % Z]....)
 :::
 
-::: response         
+::: response_strategy         
 =\> Oui, ces résultats sont basés sur un seul extrait du jeu de données
 
 Stratégie de réponse : faire d'autres sous-échantillons et voir les résultats que cela donne, en terme de taille d'intervalles de crédibilités mais aussi de consistance dans l'estimation de l'efficacité
@@ -816,7 +845,7 @@ Another important point for publication in Computo is reproducibility. We apprec
 
 - &#9989; the code to reproduce all figures in the paper (including Fig 1) should be provided
 
-::: response
+::: response_strategy
 done, j'ai mis les données nécessaire aux figures dans /data/
 cf commit "Point 2 of the reproducibility issue on github - adding code for Fig1" (20baac3981175f2692234ae65d58b14eb87504fa)
 :::
@@ -827,7 +856,7 @@ il faudra que je mette toutes les données extérieures dans data ? revoir le do
 
 - the results presented in tables should be generated from the output files (e.g. usign knitr::table)
 
-::: response
+::: response_strategy
 J'ai fait ça pour les tables 4, 5, 6 et 7. 
 :::
 
@@ -837,14 +866,14 @@ Problème : le symbole "%" ne passe pas dans les titres (cela concerne les figur
 
 - &#9989; the R package renv should be used in order to ensure the reproducibility of the envirionment used to generate your results
 
-::: response
+::: response_strategy
 done, j'ai juste installer le package renv et j'ai exécuté la commande renv::init() à la racine du dossier mysubmission.
 cf commit "Point 4 of the reproducibility issue on github - using renv", (831c82945dd6ce21fa88b861ea24ca9eb3a244b6)
 :::
 
 - &#9989; rather than copying source code from the R package 'coda' in (https://github.com/armandfavrot/mysubmission/blob/master/Files_for_code/Functions.R), please use the package functions directly (only gelman.plot2 should remain)
 
-::: response
+::: response_strategy
 cf commit "Points 5 and 6 of the reproductibility issue on github" (3c13239edfa017f6deac8feb6110d8b257542121) sur la branche correction_2.
 
 J'ai dû garder le code source de certaines fonctions du package 'coda' (fonctions non disponible avec "library(coda)"). J'ai mis l'ensemble de ces fonctions dans /functions/gelman.R (source : https://rdrr.io/cran/coda/src/R/gelman.R).
@@ -855,13 +884,13 @@ J'ai dû garder le code source de certaines fonctions du package 'coda' (fonctio
   - include these files from the article source
   - add to the repository scripts to reproduce the full analysis (e.g. in a subfolder 'scripts'
   
-::: response
+::: response_strategy
 cf commit "Points 5 and 6 of the reproductibility issue on github" (3c13239edfa017f6deac8feb6110d8b257542121) sur la branche correction_2
 :::
 
 - &#9989; prefer using .rds files (with readRDS/saveRDS) rather than .Rdata files (with load/save): loading .Rdata file may have the undesired side effect of overwriting existing R variables.
 
-::: response
+::: response_strategy
 J'ai changé tous les .Rdata en .rds.
 cf commit "Point 7 of the reproducibility issue on github" (187b404487f184de376032881b86006eb77d5b6b) sur la branche correction_2
 :::
